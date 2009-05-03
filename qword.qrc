@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/" >
+        <file>images/logo.png</file>
+        <file>images/logo.svg</file>
+        <file>images/1239111434_folder_new.png</file>
+        <file>images/1238844450_fileclose.png</file>
+        <file>images/1238844490_1_folder_open.png</file>
+        <file>images/1238844468_next.png</file>
+        <file>images/1238867598_add_48.png</file>
+        <file>images/1238844505_exit.png</file>
+        <file>images/1239185928_smiley_frown.png</file>
+        <file>images/1239185944_smiley_smile.png</file>
+    </qresource>
+</RCC>
