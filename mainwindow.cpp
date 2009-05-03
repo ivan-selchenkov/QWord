@@ -182,7 +182,23 @@ void MainWindow::on_btnStart_clicked()
     ui->txtAnswer->setEnabled(true);
     ui->chbLearn->setEnabled(false);
 
-    current = queue.dequeue();
+    if(ui->chbLearn->checkState() == Qt::Checked) // learn mode
+    {
+        do {
+            if(queue.size() <= 0) {
+                ui->lblQuestion->setText("");
+                ui->txtAnswer->setEnabled(false);
+                ui->btnStart->setEnabled(true);
+                ui->chbLearn->setEnabled(true);
+                return;
+            }
+            current = queue.dequeue();
+        } while(current.isl2Origin == true);
+    }
+    else // if normal mode
+    {
+        current = queue.dequeue();
+    }
     if(ui->chbLearn->checkState() == Qt::Checked)
         ui->lblQuestion->setText(QString("%1 - %2").arg(current.l1).arg(current.l2));
     else
