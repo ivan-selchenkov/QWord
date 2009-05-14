@@ -14,7 +14,7 @@
    <string>QWord</string>
   </property>
   <property name="windowIcon">
-   <iconset>
+   <iconset resource="qword.qrc">
     <normaloff>:/images/logo.png</normaloff>:/images/logo.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
@@ -137,12 +137,23 @@
     <addaction name="actionAdd_words"/>
     <addaction name="actionShow_Dict"/>
    </widget>
+   <widget class="QMenu" name="menuStart">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="title">
+     <string>Start</string>
+    </property>
+    <addaction name="actionNormal"/>
+    <addaction name="actionHidden"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuDictionary"/>
+   <addaction name="menuStart"/>
   </widget>
   <action name="actionOpen">
    <property name="icon">
-    <iconset>
+    <iconset resource="qword.qrc">
      <normaloff>:/images/1238844490_1_folder_open.png</normaloff>:/images/1238844490_1_folder_open.png</iconset>
    </property>
    <property name="text">
@@ -151,7 +162,7 @@
   </action>
   <action name="actionExit">
    <property name="icon">
-    <iconset>
+    <iconset resource="qword.qrc">
      <normaloff>:/images/1238844505_exit.png</normaloff>:/images/1238844505_exit.png</iconset>
    </property>
    <property name="text">
@@ -163,7 +174,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset>
+    <iconset resource="qword.qrc">
      <normaloff>:/images/1238867598_add_48.png</normaloff>:/images/1238867598_add_48.png</iconset>
    </property>
    <property name="text">
@@ -180,15 +191,27 @@
   </action>
   <action name="actionNew">
    <property name="icon">
-    <iconset>
+    <iconset resource="qword.qrc">
      <normaloff>:/images/1239111434_folder_new.png</normaloff>:/images/1239111434_folder_new.png</iconset>
    </property>
    <property name="text">
     <string>New</string>
    </property>
   </action>
+  <action name="actionNormal">
+   <property name="text">
+    <string>Normal</string>
+   </property>
+  </action>
+  <action name="actionHidden">
+   <property name="text">
+    <string>Hidden</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="qword.qrc"/>
+ </resources>
  <connections/>
 </ui>

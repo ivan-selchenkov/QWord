@@ -9,7 +9,7 @@ ShowDialog::ShowDialog(QWidget *parent) :
     MainWindow* _mw = (MainWindow*) parent;
 
     m_ui->lstWords->clear();
-    foreach(DictItem di, _mw->queue)
+    foreach(DictItem di, _mw->main_queue)
         m_ui->lstWords->addItem(QString("%1| %2 - %3").arg(di.id).arg(di.l1).arg(di.l2));
 }
 
@@ -20,7 +20,7 @@ ShowDialog::~ShowDialog()
 void ShowDialog::on_queue_update()
 {
     m_ui->lstWords->clear();
-    foreach(DictItem di, ((MainWindow*) this->parent())->queue)
+    foreach(DictItem di, ((MainWindow*) this->parent())->main_queue)
         m_ui->lstWords->addItem(QString("%1| %2 - %3").arg(di.id).arg(di.l1).arg(di.l2));
 }
 void ShowDialog::changeEvent(QEvent *e)

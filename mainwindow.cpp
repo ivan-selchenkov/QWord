@@ -5,6 +5,8 @@
 #include <QtSql>
 #include <QMessageBox>
 #include "showdialog.h"
+#include <QInputDialog>
+#include "inquiryinitial.h"
 
 bool lessThan(const DictItem &s1, const DictItem &s2);
 MainWindow::MainWindow(QWidget *parent)
@@ -17,6 +19,9 @@ MainWindow::MainWindow(QWidget *parent)
     trayIcon->setIcon(this->windowIcon());
     trayIcon->show();
 
+    isHidden = false;
+    timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(on_next_question()));
 }
 
 MainWindow::~MainWindow()
@@ -89,6 +94,7 @@ void MainWindow::LoadDict()
     ui->actionAdd_words->setEnabled(true);
     ui->actionShow_Dict->setEnabled(true);
     ui->btnStart->setEnabled(true);
+    ui->menuStart->setEnabled(true);
     db.close();
 }
 bool lessThan(const DictItem &s1, const DictItem &s2)
@@ -178,27 +184,10 @@ void MainWindow::on_btnStart_clicked()
 
     if(queue.size() <=0) return;
     qSort(queue.begin(), queue.end(), lessThan);
-    ui->btnStart->setEnabled(false);
-    ui->txtAnswer->setEnabled(true);
-    ui->chbLearn->setEnabled(false);
+    setUiEnabled(false);
 
-    if(ui->chbLearn->checkState() == Qt::Checked || ui->chbDirection->checkState() == Qt::Unchecked) // learn mode
-    {
-        do {
-            if(queue.size() <= 0) {
-                ui->lblQuestion->setText("");
-                ui->txtAnswer->setEnabled(false);
-                ui->btnStart->setEnabled(true);
-                ui->chbLearn->setEnabled(true);
-                return;
-            }
-            current = queue.dequeue();
-        } while(current.isl2Origin == true);
-    }
-    else // if normal mode
-    {
-        current = queue.dequeue();
-    }
+    if(!getItem(current)) return; // getting current item, else return
+
     if(ui->chbLearn->checkState() == Qt::Checked)
         ui->lblQuestion->setText(QString("%1 - %2").arg(current.l1).arg(current.l2));
     else
@@ -206,17 +195,90 @@ void MainWindow::on_btnStart_clicked()
 
     error = false;
 }
-
-void MainWindow::on_txtAnswer_returnPressed()
+void MainWindow::startInquiry()
 {
+    queue.clear();
+    queue.append((QList<DictItem>)main_queue);
+
+    if(queue.size() <=0) return;
+    qSort(queue.begin(), queue.end(), lessThan);
+    setUiEnabled(false);
+
+    if(!getItem(current)) return; // getting current item, else return
+
+    isHidden = true;
+
+    if(ui->chbLearn->checkState() == Qt::Checked)
+        ui->lblQuestion->setText(QString("%1 - %2").arg(current.l1).arg(current.l2));
+    else
+        ui->lblQuestion->setText(current.l1);
+
+    inquiryCount = 1; // first word shown
+    error = false;
+}
+void MainWindow::checkAnswer()
+{
+    bool goMinimize = true;
     QString answer = ui->txtAnswer->text();
     if(answer == "") return;
     if(answer != current.l2) // Ошибка
     {
-        /*QMessageBox msg;
-        msg.setText(tr("Incorrect input"));
-        msg.exec();*/
+        if(error == false) { // Ставим что одна ошибка уже была и даем еще шанс
+            error = true;
+            ui->lblOK->setText("<font color=\"red\"><b>:(</b></font>");
+            return;
+        }
+        else {
+            goMinimize = false; // show corrected phrase
+            error = false; // Сбрасываем ошибку, добавляем на повтор и идем дальше
+            queue.enqueue(current);
+            ui->lblOK->setText("<font color=\"red\"><b>:(</b></font>");
+        }
+    } else
+    {
+        ui->lblOK->setText("<font color=\"green\"><b>:)</b></font>"); // answer is correct
+    }
+    ui->txtAnswer->setText("");
+    ui->lblQuestion->setText("");
+    ui->txtWord->setText(QString("%1 - %2").arg(current.l1).arg(current.l2));
 
+    if(inquiryCount >= inquiryNumWords) {
+        if(goMinimize) emit hide();
+        timer->setInterval(60*1000*inquiryDelay);
+        timer->start();
+    }
+    else
+    {
+        on_next_question();
+    }
+}
+
+void MainWindow::on_next_question()
+{
+    if(inquiryCount >= inquiryNumWords) {
+        timer->stop();
+        emit showNormal();
+        inquiryCount = 0;
+    }
+
+    if(!getItem(current)) return; // getting current item, else return
+    error = false;
+    inquiryCount++;
+    // show answer
+    if(ui->chbLearn->checkState() == Qt::Checked)
+        ui->lblQuestion->setText(QString("%1 - %2").arg(current.l1).arg(current.l2));
+    else
+        ui->lblQuestion->setText(current.l1);
+}
+
+void MainWindow::on_txtAnswer_returnPressed()
+{
+    if(isHidden) { checkAnswer(); return; }
+
+    QString answer = ui->txtAnswer->text();
+    if(answer == "") return;
+    if(answer != current.l2) // Ошибка
+    {
         if(error == false) { error = true; ui->lblOK->setText("<font color=\"red\"><b>:(</b></font>"); return; } // Ставим что одна ошибка уже была и даем еще шанс
         else { error = false; queue.enqueue(current); ui->lblOK->setText("<font color=\"red\"><b>:(</b></font>"); } // Сбрасываем ошибку и идем дальше
     } else
@@ -226,31 +288,8 @@ void MainWindow::on_txtAnswer_returnPressed()
     ui->txtAnswer->setText("");
     ui->txtWord->setText(QString("%1 - %2").arg(current.l1).arg(current.l2));
 
-    if(ui->chbLearn->checkState() == Qt::Checked || ui->chbDirection->checkState() == Qt::Unchecked) // learn mode
-    {
-        do {
-            if(queue.size() <= 0) {
-                ui->lblQuestion->setText("");
-                ui->txtAnswer->setEnabled(false);
-                ui->btnStart->setEnabled(true);
-                ui->chbLearn->setEnabled(true);
-                return;
-            }
-            current = queue.dequeue();
-        } while(current.isl2Origin == true);
-    }
-    else // if normal mode
-    {
-        if(queue.size() <= 0) {
-            ui->lblQuestion->setText("");
-            ui->txtAnswer->setEnabled(false);
-            ui->btnStart->setEnabled(true);
-            ui->chbLearn->setEnabled(true);
-            return;
-        }
-        current = queue.dequeue();
-    }
-
+    if(!getItem(current)) return; // getting current item, else return
+    error = false;
     // show answer
     if(ui->chbLearn->checkState() == Qt::Checked)
         ui->lblQuestion->setText(QString("%1 - %2").arg(current.l1).arg(current.l2));
@@ -258,34 +297,6 @@ void MainWindow::on_txtAnswer_returnPressed()
         ui->lblQuestion->setText(current.l1);
 
 }
-
- void MainWindow::createActions()
- {
-     minimizeAction = new QAction(tr("Mi&nimize"), this);
-     connect(minimizeAction, SIGNAL(triggered()), this, SLOT(hide()));
-
-     maximizeAction = new QAction(tr("Ma&ximize"), this);
-     connect(maximizeAction, SIGNAL(triggered()), this, SLOT(showMaximized()));
-
-     restoreAction = new QAction(tr("&Restore"), this);
-     connect(restoreAction, SIGNAL(triggered()), this, SLOT(showNormal()));
-
-     quitAction = new QAction(tr("&Quit"), this);
-     connect(quitAction, SIGNAL(triggered()), this, SLOT(close()));
- }
-
- void MainWindow::createTrayIcon()
- {
-     trayIconMenu = new QMenu(this);
-     trayIconMenu->addAction(minimizeAction);
-     trayIconMenu->addAction(maximizeAction);
-     trayIconMenu->addAction(restoreAction);
-     trayIconMenu->addSeparator();
-     trayIconMenu->addAction(quitAction);
-
-     trayIcon = new QSystemTrayIcon(this);
-     trayIcon->setContextMenu(trayIconMenu);
- }
 
 void MainWindow::on_actionShow_Dict_triggered()
 {
@@ -324,3 +335,76 @@ void MainWindow::on_actionNew_triggered()
     database = str;
     LoadDict();
 }
+
+void MainWindow::on_actionNormal_triggered()
+{
+    on_btnStart_clicked();
+}
+
+void MainWindow::on_actionHidden_triggered()
+{
+    InquiryInitial dialog(this);
+    if(dialog.exec() == QDialog::Accepted)
+    {
+        startInquiry();
+    }
+}
+
+bool MainWindow::getItem(DictItem& item) {
+    if(ui->chbLearn->checkState() == Qt::Checked || ui->chbDirection->checkState() == Qt::Unchecked) // learn mode
+    {
+        do {
+            if(queue.size() <= 0) {
+                ui->lblQuestion->setText("");
+                setUiEnabled(true);
+                return false;
+            }
+            item = queue.dequeue();
+        } while(current.isl2Origin == true);
+    }
+    else // if normal mode
+    {
+        if(queue.size() <= 0) {
+            ui->lblQuestion->setText("");
+            return false;
+        }
+        item = queue.dequeue();
+    }
+    return true;
+}
+void MainWindow::setUiEnabled(bool value)
+{
+    ui->txtAnswer->setEnabled(!value);
+    ui->btnStart->setEnabled(value);
+    ui->menuStart->setEnabled(value);
+    ui->chbLearn->setEnabled(value);
+}
+//********** Maximize, minimize, normal, tray icon **********
+void MainWindow::createActions()
+ {
+     minimizeAction = new QAction(tr("Mi&nimize"), this);
+     connect(minimizeAction, SIGNAL(triggered()), this, SLOT(hide()));
+
+     maximizeAction = new QAction(tr("Ma&ximize"), this);
+     connect(maximizeAction, SIGNAL(triggered()), this, SLOT(showMaximized()));
+
+     restoreAction = new QAction(tr("&Restore"), this);
+     connect(restoreAction, SIGNAL(triggered()), this, SLOT(showNormal()));
+
+     quitAction = new QAction(tr("&Quit"), this);
+     connect(quitAction, SIGNAL(triggered()), this, SLOT(close()));
+ }
+
+ void MainWindow::createTrayIcon()
+ {
+     trayIconMenu = new QMenu(this);
+     trayIconMenu->addAction(minimizeAction);
+     trayIconMenu->addAction(maximizeAction);
+     trayIconMenu->addAction(restoreAction);
+     trayIconMenu->addSeparator();
+     trayIconMenu->addAction(quitAction);
+
+     trayIcon = new QSystemTrayIcon(this);
+     trayIcon->setContextMenu(trayIconMenu);
+ }
+

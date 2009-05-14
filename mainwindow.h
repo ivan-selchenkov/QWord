@@ -29,12 +29,19 @@ public:
     QList<DictItem> list;
     QQueue<DictItem> queue;
     QQueue<DictItem> main_queue;
+
+    //******* Inquiry
+    int inquiryDelay;
+    int inquiryNumWords;
 private:
     Ui::MainWindowClass *ui;
 
     void createActions();
     void LoadDict();
     void createTrayIcon();
+
+    void setUiEnabled(bool value);
+    bool getItem(DictItem&);
 
     DictItem current;
     bool error;
@@ -47,8 +54,15 @@ private:
     QAction *maximizeAction;
     QAction *restoreAction;
 
-
+    // for hidden mode
+    int inquiryCount;
+    void startInquiry();
+    void checkAnswer();
+    bool isHidden;
+    QTimer* timer;
 private slots:
+    void on_actionHidden_triggered();
+    void on_actionNormal_triggered();
     void on_actionNew_triggered();
     void on_actionShow_Dict_triggered();
     void on_txtAnswer_returnPressed();
@@ -59,6 +73,7 @@ private slots:
     void on_actionExit_triggered();
     void on_newWord(DictItem);
     void on_delete_item(int);
+    void on_next_question();
 
 signals:
     void signal_updateQueue();
