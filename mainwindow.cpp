@@ -207,7 +207,7 @@ void MainWindow::on_btnStart_clicked()
         ui->lblQuestion->setText(current.l1);
 
     countErrors = 0;
-    countTotal = queue.size();
+    countTotal = 1;
 
     error = false;
 }
@@ -230,7 +230,7 @@ void MainWindow::startInquiry()
         ui->lblQuestion->setText(current.l1);
 
     countErrors = 0;
-    countTotal = queue.size();
+    countTotal = 1;
 
     inquiryCount = 1; // first word shown
     error = false;
@@ -262,6 +262,14 @@ void MainWindow::checkAnswer()
     ui->lblQuestion->setText("");
     ui->txtWord->setText(QString("%1 - %2").arg(current.l1).arg(current.l2));
 
+    if(!getItem(current)) { // getting current item, else return
+        QMessageBox msgBox;
+        msgBox.setText(QString(tr("Finished! <br><br>Total: %1<br>Error: %2")).arg(countTotal).arg(countErrors));
+        msgBox.exec();
+        return;
+    }
+    countTotal++;
+
     if(inquiryCount >= inquiryNumWords) {
         if(goMinimize) emit hide();
         timer->setInterval(60*1000*inquiryDelay);
@@ -281,12 +289,6 @@ void MainWindow::on_next_question()
         inquiryCount = 0;
     }
 
-    if(!getItem(current)) { // getting current item, else return
-        QMessageBox msgBox;
-        msgBox.setText(QString(tr("Finished! <br><br>Total: %1<br>Error: %2")).arg(countTotal).arg(countErrors));
-        msgBox.exec();
-        return;
-    }
 
     error = false;
     inquiryCount++;
@@ -318,8 +320,10 @@ void MainWindow::on_txtAnswer_returnPressed()
         QMessageBox msgBox;
         msgBox.setText(QString(tr("Finished! <br><br>Total: %1<br>Error: %2")).arg(countTotal).arg(countErrors));
         msgBox.exec();
-    return; // getting current item, else return
+        return; // getting current item, else return
     }
+
+    countTotal++;
 
     error = false;
     // show answer
@@ -446,3 +450,12 @@ void MainWindow::createActions()
      trayIcon->setContextMenu(trayIconMenu);
  }
 
+
+void MainWindow::on_btnStartHidden_clicked()
+{
+    InquiryInitial dialog(this);
+    if(dialog.exec() == QDialog::Accepted)
+    {
+        startInquiry();
+    }
+}
