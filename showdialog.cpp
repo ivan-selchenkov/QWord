@@ -8,6 +8,8 @@ ShowDialog::ShowDialog(QWidget *parent) :
     m_ui->setupUi(this);    
     MainWindow* _mw = (MainWindow*) parent;
 
+    setWindowTitle(QString("QWord - %1").arg(_mw->fileInfo.fileName()));
+
     m_ui->lstWords->clear();
     foreach(DictItem di, _mw->main_queue)
         m_ui->lstWords->addItem(QString("%1| %2 - %3").arg(di.id).arg(di.l1).arg(di.l2));

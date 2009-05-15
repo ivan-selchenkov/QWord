@@ -1,11 +1,14 @@
 #include "adddialog.h"
 #include "ui_adddialog.h"
+#include "mainwindow.h"
 
 AddDialog::AddDialog(QWidget *parent) :
     QDialog(parent),
     m_ui(new Ui::AddDialog)
 {
+    MainWindow* mainwindow = (MainWindow*) parent;
     m_ui->setupUi(this);
+    setWindowTitle(QString("QWord - %1").arg(mainwindow->fileInfo.fileName()));
 }
 
 AddDialog::~AddDialog()

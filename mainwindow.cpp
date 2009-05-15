@@ -45,6 +45,7 @@ void MainWindow::on_actionOpen_triggered()
         return;
     }
     database = str;
+    fileInfo.setFile(database);
     LoadDict();
 }
 
@@ -90,7 +91,7 @@ void MainWindow::LoadDict()
         queue.enqueue(di);
     }
     main_queue.append((QList<DictItem>)queue);
-    this->setWindowTitle(QString("QWord - %1").arg(database));
+    this->setWindowTitle(QString("QWord - %1").arg(fileInfo.fileName()));
     ui->actionAdd_words->setEnabled(true);
     ui->actionShow_Dict->setEnabled(true);
     ui->btnStart->setEnabled(true);
@@ -104,7 +105,7 @@ bool lessThan(const DictItem &s1, const DictItem &s2)
 }
 void MainWindow::on_actionAdd_words_triggered()
 {
-    AddDialog dialog;
+    AddDialog dialog(this);
     connect(&dialog, SIGNAL(signalNewWord(DictItem)), this, SLOT(on_newWord(DictItem)));
     dialog.exec();
 }
@@ -388,8 +389,8 @@ void MainWindow::createActions()
      minimizeAction = new QAction(tr("Mi&nimize"), this);
      connect(minimizeAction, SIGNAL(triggered()), this, SLOT(hide()));
 
-     maximizeAction = new QAction(tr("Ma&ximize"), this);
-     connect(maximizeAction, SIGNAL(triggered()), this, SLOT(showMaximized()));
+     //maximizeAction = new QAction(tr("Ma&ximize"), this);
+     //connect(maximizeAction, SIGNAL(triggered()), this, SLOT(showMaximized()));
 
      restoreAction = new QAction(tr("&Restore"), this);
      connect(restoreAction, SIGNAL(triggered()), this, SLOT(showNormal()));
@@ -402,7 +403,7 @@ void MainWindow::createActions()
  {
      trayIconMenu = new QMenu(this);
      trayIconMenu->addAction(minimizeAction);
-     trayIconMenu->addAction(maximizeAction);
+     //trayIconMenu->addAction(maximizeAction);
      trayIconMenu->addAction(restoreAction);
      trayIconMenu->addSeparator();
      trayIconMenu->addAction(quitAction);

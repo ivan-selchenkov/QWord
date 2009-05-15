@@ -4,6 +4,7 @@
 #include <QtGui/QMainWindow>
 #include <QQueue>
 #include <QSystemTrayIcon>
+#include <QFileInfo>
 
 struct DictItem
 {
@@ -29,12 +30,14 @@ public:
     QList<DictItem> list;
     QQueue<DictItem> queue;
     QQueue<DictItem> main_queue;
+    QFileInfo fileInfo;
 
     //******* Inquiry
     int inquiryDelay;
     int inquiryNumWords;
 private:
     Ui::MainWindowClass *ui;
+
 
     void createActions();
     void LoadDict();
