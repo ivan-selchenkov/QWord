@@ -94,7 +94,8 @@ void MainWindow::LoadDict()
     ui->actionAdd_words->setEnabled(true);
     ui->actionShow_Dict->setEnabled(true);
     ui->btnStart->setEnabled(true);
-    ui->menuStart->setEnabled(true);
+    //ui->menuStart->setEnabled(true);
+    ui->btnStartHidden->setEnabled(true);
     db.close();
 }
 bool lessThan(const DictItem &s1, const DictItem &s2)
@@ -376,8 +377,10 @@ void MainWindow::setUiEnabled(bool value)
 {
     ui->txtAnswer->setEnabled(!value);
     ui->btnStart->setEnabled(value);
-    ui->menuStart->setEnabled(value);
+    ui->btnStartHidden->setEnabled(value);
+    //ui->menuStart->setEnabled(value);
     ui->chbLearn->setEnabled(value);
+    ui->chbDirection->setEnabled(value);
 }
 //********** Maximize, minimize, normal, tray icon **********
 void MainWindow::createActions()

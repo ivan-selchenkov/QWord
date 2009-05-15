@@ -10,5 +10,8 @@
         <file>images/1238844505_exit.png</file>
         <file>images/1239185928_smiley_frown.png</file>
         <file>images/1239185944_smiley_smile.png</file>
+        <file>images/test1.svg</file>
+        <file>images/test2.svg</file>
+        <file>images/test3.svg</file>
     </qresource>
 </RCC>
