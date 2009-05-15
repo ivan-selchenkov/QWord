@@ -5,7 +5,7 @@ Summary: Application for learning foreign words
 Group: Education/Languages
 License: GPL
 Source0: qword-2.0.tar.gz
-Source0: qword.desktop
+Source1: qword.desktop
 BuildRoot: %{_tmppath}/%{name}-%{version}-build 
 
 #########################################################################################  
