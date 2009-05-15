@@ -45,13 +45,13 @@ void MainWindow::on_actionOpen_triggered()
         return;
     }
     database = str;
-    fileInfo.setFile(database);
     LoadDict();
 }
 
 void MainWindow::LoadDict()
 {
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    fileInfo.setFile(database);
     db.setDatabaseName(database);
     if(!db.open())
     {
@@ -135,7 +135,6 @@ void MainWindow::on_newWord(DictItem _i)
             return;
         }
     }
-    main_queue.append(_i);
 /*
   CREATE TABLE dict(id INTEGER PRIMARY KEY AUTOINCREMENT, l1 TEXT, l2 TEXT, origin INTEGER(1) NOT NULL DEFAULT 0);
   */
@@ -151,6 +150,7 @@ void MainWindow::on_newWord(DictItem _i)
 
     int id = query.lastInsertId().toInt();
     _i.id = id;
+    main_queue.append(_i);
 
 
     db.close();
@@ -340,13 +340,17 @@ void MainWindow::on_actionShow_Dict_triggered()
 
 void MainWindow::on_actionNew_triggered()
 {
-    QString str = QFileDialog::getSaveFileName(this, tr("Select dictionary..."), "", "*.db");
+    QString str = QFileDialog::getSaveFileName(this, tr("Creating dictionary..."), "", "*.db");
     if(str == "") return;
     if(QFileInfo(str).exists()) {
         QMessageBox msgBox;
         msgBox.setText(tr("File exists."));
         msgBox.exec();
         return;
+    }
+    if(!str.contains(QRegExp(".+(.db|.DB)$")))
+    {
+        str.append(".db");
     }
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName(str);
