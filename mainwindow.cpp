@@ -124,6 +124,18 @@ void MainWindow::on_newWord(DictItem _i)
         msgBox.exec();
         return;
     }
+    DictItem di;
+    foreach(di, main_queue)
+    {
+        if(di == _i)
+        {
+            QMessageBox msgBox;
+            msgBox.setText(tr("Record exists..."));
+            msgBox.exec();
+            return;
+        }
+    }
+    main_queue.append(_i);
 /*
   CREATE TABLE dict(id INTEGER PRIMARY KEY AUTOINCREMENT, l1 TEXT, l2 TEXT, origin INTEGER(1) NOT NULL DEFAULT 0);
   */
@@ -139,7 +151,6 @@ void MainWindow::on_newWord(DictItem _i)
 
     int id = query.lastInsertId().toInt();
     _i.id = id;
-    queue.enqueue(_i);
 
 
     db.close();
@@ -155,11 +166,11 @@ void MainWindow::on_delete_item(int id)
         msgBox.exec();
         return;
     }
-    for(int i=0; i< queue.size(); i++)
+    for(int i=0; i< main_queue.size(); i++)
     {
-        if(queue.at(i).id == id)
+        if(main_queue.at(i).id == id)
         {
-            queue.removeAt(i);
+            main_queue.removeAt(i);
             break;
         }
     }
@@ -195,6 +206,9 @@ void MainWindow::on_btnStart_clicked()
     else
         ui->lblQuestion->setText(current.l1);
 
+    countErrors = 0;
+    countTotal = queue.size();
+
     error = false;
 }
 void MainWindow::startInquiry()
@@ -215,6 +229,9 @@ void MainWindow::startInquiry()
     else
         ui->lblQuestion->setText(current.l1);
 
+    countErrors = 0;
+    countTotal = queue.size();
+
     inquiryCount = 1; // first word shown
     error = false;
 }
@@ -231,6 +248,7 @@ void MainWindow::checkAnswer()
             return;
         }
         else {
+            countErrors++;
             goMinimize = false; // show corrected phrase
             error = false; // Сбрасываем ошибку, добавляем на повтор и идем дальше
             queue.enqueue(current);
@@ -263,7 +281,13 @@ void MainWindow::on_next_question()
         inquiryCount = 0;
     }
 
-    if(!getItem(current)) return; // getting current item, else return
+    if(!getItem(current)) { // getting current item, else return
+        QMessageBox msgBox;
+        msgBox.setText(QString(tr("Finished! <br><br>Total: %1<br>Error: %2")).arg(countTotal).arg(countErrors));
+        msgBox.exec();
+        return;
+    }
+
     error = false;
     inquiryCount++;
     // show answer
@@ -282,7 +306,7 @@ void MainWindow::on_txtAnswer_returnPressed()
     if(answer != current.l2) // Ошибка
     {
         if(error == false) { error = true; ui->lblOK->setText("<font color=\"red\"><b>:(</b></font>"); return; } // Ставим что одна ошибка уже была и даем еще шанс
-        else { error = false; queue.enqueue(current); ui->lblOK->setText("<font color=\"red\"><b>:(</b></font>"); } // Сбрасываем ошибку и идем дальше
+        else { countErrors++; error = false; queue.enqueue(current); ui->lblOK->setText("<font color=\"red\"><b>:(</b></font>"); } // Сбрасываем ошибку и идем дальше
     } else
     {
         ui->lblOK->setText("<font color=\"green\"><b>:)</b></font>");
@@ -290,7 +314,13 @@ void MainWindow::on_txtAnswer_returnPressed()
     ui->txtAnswer->setText("");
     ui->txtWord->setText(QString("%1 - %2").arg(current.l1).arg(current.l2));
 
-    if(!getItem(current)) return; // getting current item, else return
+    if(!getItem(current)) {
+        QMessageBox msgBox;
+        msgBox.setText(QString(tr("Finished! <br><br>Total: %1<br>Error: %2")).arg(countTotal).arg(countErrors));
+        msgBox.exec();
+    return; // getting current item, else return
+    }
+
     error = false;
     // show answer
     if(ui->chbLearn->checkState() == Qt::Checked)

@@ -13,6 +13,14 @@ struct DictItem
     bool isl2Origin; // if true, combination will not be use in learn mode
     int id;
     int random;
+    bool operator== ( const DictItem & other ) const {
+        if(l1 == other.l1 && l2 == other.l2)
+        {
+            return true;
+        }
+        else
+            return false;
+    }
 };
 
 namespace Ui
@@ -38,6 +46,8 @@ public:
 private:
     Ui::MainWindowClass *ui;
 
+    int countErrors;
+    int countTotal;
 
     void createActions();
     void LoadDict();
