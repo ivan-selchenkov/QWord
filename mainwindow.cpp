@@ -90,8 +90,10 @@ void MainWindow::LoadDict()
         di.random = qrand();
         queue.enqueue(di);
     }
-    QList<DictItem>* main_list = (QList<DictItem>*) &main_queue;
-    main_list->append((QList<DictItem>)queue);
+
+    DictItem __i;
+    foreach(__i, queue)
+        main_queue.append(__i);
 
     this->setWindowTitle(QString("QWord - %1").arg(fileInfo.fileName()));
     ui->actionAdd_words->setEnabled(true);
@@ -196,8 +198,9 @@ void MainWindow::on_btnStart_clicked()
 {
     queue.clear();
 
-    QList<DictItem>* queue_list = (QList<DictItem>*) &queue;
-    queue_list->append((QList<DictItem>)main_queue);
+    DictItem __i;
+    foreach(__i, main_queue)
+        queue.append(__i);
 
     if(queue.size() <=0) return;
     qSort(queue.begin(), queue.end(), lessThan);
@@ -219,8 +222,9 @@ void MainWindow::startInquiry()
 {
     queue.clear();
 
-    QList<DictItem>* queue_list = (QList<DictItem>*) &queue;
-    queue_list->append((QList<DictItem>)main_queue);
+    DictItem __i;
+    foreach(__i, main_queue)
+        queue.append(__i);
 
     if(queue.size() <=0) return;
     qSort(queue.begin(), queue.end(), lessThan);
