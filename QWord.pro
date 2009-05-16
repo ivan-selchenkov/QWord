@@ -24,4 +24,12 @@ SOURCES += adddialog.cpp \
     inquiryinitial.cpp
 RESOURCES += qword.qrc
 TRANSLATIONS += main_ru.ts
-INSTALLS += target
+
+desktop.path = /usr/share/applications
+desktop.files = applications/qword.desktop
+
+svg.path = /usr/share/pixmaps
+svg.files = images/qword.svg
+
+target.path = /usr/bin
+INSTALLS += target desktop svg
