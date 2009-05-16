@@ -13,5 +13,11 @@
         <file>images/test1.svg</file>
         <file>images/test2.svg</file>
         <file>images/test3.svg</file>
+        <file>images/3.png</file>
+        <file>images/2.png</file>
+        <file>images/test5.png</file>
+        <file>images/test6.png</file>
+        <file>images/test5.svg</file>
+        <file>images/qword.svg</file>
     </qresource>
 </RCC>

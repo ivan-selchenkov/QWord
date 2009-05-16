@@ -12,14 +12,15 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-build
 # SuSE, openSUSE  
 #########################################################################################  
 %if 0%{?suse_version}  
-BuildRequires:  update-desktop-files  
-BuildRequires:  libqt4-devel >= 4.5  
+#BuildRequires:  update-desktop-files  
+BuildRequires:  desktop-file-utils  
+BuildRequires:  libqt4-devel  
 %endif  
  #########################################################################################  
 # Fedora, RHEL or CentOS  
 #########################################################################################  
 %if 0%{?fedora_version} || 0%{?rhel_version} || 0%{?centos_version}  
-BuildRequires:  qt4-devel >= 4.5  
+BuildRequires:  qt4-devel  
 BuildRequires:  desktop-file-utils  
 %endif  
 
@@ -44,16 +45,18 @@ install QWord $RPM_BUILD_ROOT/usr/local/bin
 install images/test1.svg $RPM_BUILD_ROOT/usr/local/share/QWord
 
 %if 0%{?suse_version}
-  %suse_update_desktop_file -i QWord QWord Learning foreign words
+#  %suse_update_desktop_file -c qword QWord "Learning foreign words" QWord "" Education
+ %suse_update_desktop_file -i qword Education
+#  desktop-file-install --dir=%{buildroot}%{_datadir}/applications/ --add-category Education --add-category Languages qword.desktop
 %elseif 0%{?fedora_version}
-  desktop-file-install --dir=%{buildroot}%{_datadir}/applications/ --add-category Development --add-category Qt --add-category IDE qword.desktop
+  desktop-file-install --dir=%{buildroot}%{_datadir}/applications/ --add-category Education --add-category Languages qword.desktop
 %endif
 
 %files
 %defattr(-,root,root)
 /usr/local/bin/QWord
 /usr/local/share/QWord/test1.svg
-%{_datadir}/applications/qword.desktop
+/usr/share/applications/qword.desktop
 
 %clean
 rm -rf $RPM_BUILD_ROOT

@@ -24,3 +24,4 @@ SOURCES += adddialog.cpp \
     inquiryinitial.cpp
 RESOURCES += qword.qrc
 TRANSLATIONS += main_ru.ts
+INSTALLS += target

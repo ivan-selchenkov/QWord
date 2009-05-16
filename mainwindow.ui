@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="qword.qrc">
-    <normaloff>:/images/test3.svg</normaloff>:/images/test3.svg</iconset>
+    <normaloff>:/images/qword.svg</normaloff>:/images/qword.svg</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
