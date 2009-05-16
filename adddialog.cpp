@@ -53,7 +53,7 @@ void AddDialog::saveValues()
     DictItem di;
     di.l1 = m_ui->txtEs->text();
     di.l2 = m_ui->txtRu->text();
-    di.isl2Origin = m_ui->rbRu->isChecked();
+    di.isl2Origin = true; //m_ui->rbRu->isChecked();
 
     emit signalNewWord(di);
 
@@ -61,7 +61,7 @@ void AddDialog::saveValues()
     {
         di.l2 = m_ui->txtEs->text();
         di.l1 = m_ui->txtRu->text();
-        di.isl2Origin = !m_ui->rbRu->isChecked();
+        di.isl2Origin = false; //!m_ui->rbRu->isChecked();
         emit signalNewWord(di);
     }
 

@@ -100,7 +100,7 @@ void MainWindow::LoadDict()
     ui->actionShow_Dict->setEnabled(true);
     ui->btnStart->setEnabled(true);
     //ui->menuStart->setEnabled(true);
-    ui->btnStartHidden->setEnabled(true);
+    //ui->btnStartHidden->setEnabled(true);
     db.close();
 }
 bool lessThan(const DictItem &s1, const DictItem &s2)
@@ -196,6 +196,11 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::on_btnStart_clicked()
 {
+    if(ui->chbTray->checkState() == Qt::Checked)
+    {
+        on_btnStartHidden_clicked();
+        return;
+    }
     queue.clear();
 
     DictItem __i;
@@ -426,8 +431,7 @@ void MainWindow::setUiEnabled(bool value)
 {
     ui->txtAnswer->setEnabled(!value);
     ui->btnStart->setEnabled(value);
-    ui->btnStartHidden->setEnabled(value);
-    //ui->menuStart->setEnabled(value);
+    ui->chbTray->setEnabled(value);
     ui->chbLearn->setEnabled(value);
     ui->chbDirection->setEnabled(value);
 }

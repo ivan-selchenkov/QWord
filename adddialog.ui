@@ -23,19 +23,12 @@
      <item>
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>Word: </string>
+        <string>Foreign tongue:</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QLineEdit" name="txtEs"/>
-     </item>
-     <item>
-      <widget class="QRadioButton" name="rbEs">
-       <property name="text">
-        <string>Origin</string>
-       </property>
-      </widget>
      </item>
     </layout>
    </item>
@@ -44,50 +37,27 @@
      <item>
       <widget class="QLabel" name="label_2">
        <property name="text">
-        <string>Translation: </string>
+        <string>Mother tongue: </string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QLineEdit" name="txtRu"/>
      </item>
-     <item>
-      <widget class="QRadioButton" name="rbRu">
-       <property name="text">
-        <string>Origin</string>
-       </property>
-       <property name="checked">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
     </layout>
    </item>
    <item>
     <widget class="QCheckBox" name="cboxRevert">
      <property name="layoutDirection">
-      <enum>Qt::RightToLeft</enum>
+      <enum>Qt::LeftToRight</enum>
      </property>
      <property name="text">
-      <string>Reverse</string>
+      <string>Reverse translation</string>
      </property>
      <property name="checked">
       <bool>true</bool>
      </property>
     </widget>
-   </item>
-   <item>
-    <spacer name="verticalSpacer">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_3">

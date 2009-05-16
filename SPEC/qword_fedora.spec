@@ -1,6 +1,6 @@
 Name: qword
 Version: 2.0
-Release: 1
+Release: 2
 Summary: Application for learning foreign words
 Group: Education/Languages
 License: GPL
@@ -24,8 +24,7 @@ BuildRequires:  desktop-file-utils
 %endif  
 
 %description
-This package basically does nothing, but it potentially could
-do something useful.
+Application for learning foreign words
 
 %prep
 %setup -q -n %{name}-%{version}
@@ -43,7 +42,7 @@ install -m 644 images/qword.svg $RPM_BUILD_ROOT/%{_datadir}/pixmaps
 %if 0%{?suse_version}
  %suse_update_desktop_file -i %{name} Education
 %elseif 0%{?fedora_version}
-  desktop-file-install --dir=%{buildroot}%{_datadir}/applications/ --add-category Education --add-category Languages qword.desktop
+  desktop-file-install --dir=%{buildroot}%{_datadir}/applications/ --add-category Education --add-category Languages applications/qword.desktop
 %endif
 
 %files
