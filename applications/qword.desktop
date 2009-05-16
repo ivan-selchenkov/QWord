@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Category=Education;Languages;
+Terminal=false
+Icon=/usr/local/share/QWord/test1.svg
+Exec=QWord
+Name=QWord (learning foreign words)
+
