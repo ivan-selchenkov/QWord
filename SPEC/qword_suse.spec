@@ -1,5 +1,5 @@
 # spec file for package QWord (Version 2.0)
-# Copyright 2009 Ivan Selchenkov <vashik.net@gmail.com>
+# 2009 Ivan Selchenkov <vashik.net@gmail.com>
 #
 # norootforbuild
 
