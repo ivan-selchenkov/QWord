@@ -14,13 +14,16 @@
    <string>QWord</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="qword.qrc">
+   <iconset>
     <normaloff>:/images/qword.svg</normaloff>:/images/qword.svg</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
      <widget class="QLineEdit" name="txtWord">
+      <property name="styleSheet">
+       <string/>
+      </property>
       <property name="readOnly">
        <bool>true</bool>
       </property>
@@ -156,12 +159,18 @@
     <addaction name="actionAdd_words"/>
     <addaction name="actionShow_Dict"/>
    </widget>
+   <widget class="QMenu" name="menuAbout">
+    <property name="title">
+     <string>About</string>
+    </property>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuDictionary"/>
+   <addaction name="menuAbout"/>
   </widget>
   <action name="actionOpen">
    <property name="icon">
-    <iconset resource="qword.qrc">
+    <iconset>
      <normaloff>:/images/1238844490_1_folder_open.png</normaloff>:/images/1238844490_1_folder_open.png</iconset>
    </property>
    <property name="text">
@@ -170,7 +179,7 @@
   </action>
   <action name="actionExit">
    <property name="icon">
-    <iconset resource="qword.qrc">
+    <iconset>
      <normaloff>:/images/1238844505_exit.png</normaloff>:/images/1238844505_exit.png</iconset>
    </property>
    <property name="text">
@@ -182,7 +191,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="qword.qrc">
+    <iconset>
      <normaloff>:/images/1238867598_add_48.png</normaloff>:/images/1238867598_add_48.png</iconset>
    </property>
    <property name="text">
@@ -199,7 +208,7 @@
   </action>
   <action name="actionNew">
    <property name="icon">
-    <iconset resource="qword.qrc">
+    <iconset>
      <normaloff>:/images/1239111434_folder_new.png</normaloff>:/images/1239111434_folder_new.png</iconset>
    </property>
    <property name="text">
@@ -218,8 +227,6 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="qword.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

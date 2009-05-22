@@ -12,24 +12,26 @@ QT += sql
 HEADERS += adddialog.h \
     mainwindow.h \
     showdialog.h \
-    inquiryinitial.h
+    inquiryinitial.h \
+    about.h
 FORMS += adddialog.ui \
     mainwindow.ui \
     showdialog.ui \
-    inquiryinitial.ui
+    inquiryinitial.ui \
+    about.ui
 SOURCES += adddialog.cpp \
     main.cpp \
     mainwindow.cpp \
     showdialog.cpp \
-    inquiryinitial.cpp
+    inquiryinitial.cpp \
+    about.cpp
 RESOURCES += qword.qrc
 TRANSLATIONS += main_ru.ts
-
 desktop.path = /usr/share/applications
 desktop.files = applications/qword.desktop
-
 svg.path = /usr/share/pixmaps
 svg.files = images/qword.svg
-
 target.path = /usr/bin
-INSTALLS += target desktop svg
+INSTALLS += target \
+    desktop \
+    svg
