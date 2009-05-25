@@ -13,25 +13,30 @@ HEADERS += adddialog.h \
     mainwindow.h \
     showdialog.h \
     inquiryinitial.h \
-    about.h
+    about.h \
+    dictionaryedit.h \
+    editablesqlmodel.h
 FORMS += adddialog.ui \
     mainwindow.ui \
     showdialog.ui \
     inquiryinitial.ui \
-    about.ui
+    about.ui \
+    dictionaryedit.ui
 SOURCES += adddialog.cpp \
     main.cpp \
     mainwindow.cpp \
     showdialog.cpp \
     inquiryinitial.cpp \
-    about.cpp
+    about.cpp \
+    dictionaryedit.cpp \
+    editablesqlmodel.cpp
 RESOURCES += qword.qrc
 TRANSLATIONS += main_ru.ts
-desktop.path = /usr/share/applications
-desktop.files = applications/qword.desktop
-svg.path = /usr/share/pixmaps
-svg.files = images/qword.svg
-target.path = /usr/bin
-INSTALLS += target \
+unix:desktop.path = /usr/share/applications
+unix:desktop.files = applications/qword.desktop
+unix:svg.path = /usr/share/pixmaps
+unix:svg.files = images/qword.svg
+unix:target.path = /usr/bin
+unix:INSTALLS += target \
     desktop \
     svg
