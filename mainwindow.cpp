@@ -352,10 +352,8 @@ void MainWindow::on_txtAnswer_returnPressed()
 
 void MainWindow::on_actionShow_Dict_triggered()
 {
-    ShowDialog sd(this);
-    connect(&sd, SIGNAL(signalDeleteItem(int)), this, SLOT(on_delete_item(int)));
-    connect(this, SIGNAL(signal_updateQueue()), &sd, SLOT(on_queue_update()));
-    sd.exec();
+    DictionaryEdit de(this);
+    de.exec();
 }
 
 void MainWindow::on_actionNew_triggered()

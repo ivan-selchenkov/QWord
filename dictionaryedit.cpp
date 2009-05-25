@@ -53,3 +53,8 @@ void DictionaryEdit::changeEvent(QEvent *e)
         break;
     }
 }
+
+void DictionaryEdit::on_btnDelete_clicked()
+{
+    model->RemoveRow(m_ui->viewDict->selectionModel()->selectedIndexes());
+}

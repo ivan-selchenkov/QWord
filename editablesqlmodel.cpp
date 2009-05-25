@@ -46,3 +46,24 @@ void EditableSqlModel::refresh()
     query.addBindValue(Id);
     return query.exec();
  }
+
+void EditableSqlModel::RemoveRow(QModelIndexList indexes)
+{
+    QModelIndex index;
+    QModelIndex primaryKeyIndex;
+    QSqlQuery query;
+
+    int id;
+
+    foreach(index, indexes)
+    {
+        primaryKeyIndex = QSqlQueryModel::index(index.row(), 0);
+        id = data(primaryKeyIndex).toInt();
+
+        query.prepare("delete from dict where id = ?");
+        query.addBindValue(id);
+        query.exec();
+    }
+    clear();
+    refresh();
+}

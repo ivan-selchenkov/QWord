@@ -14,7 +14,7 @@
    <string>QWord</string>
   </property>
   <property name="windowIcon">
-   <iconset>
+   <iconset resource="qword.qrc">
     <normaloff>:/images/qword.svg</normaloff>:/images/qword.svg</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
@@ -164,20 +164,13 @@
      <string>About</string>
     </property>
    </widget>
-   <widget class="QMenu" name="menuTest">
-    <property name="title">
-     <string>Test</string>
-    </property>
-    <addaction name="action1"/>
-   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuDictionary"/>
    <addaction name="menuAbout"/>
-   <addaction name="menuTest"/>
   </widget>
   <action name="actionOpen">
    <property name="icon">
-    <iconset>
+    <iconset resource="qword.qrc">
      <normaloff>:/images/1238844490_1_folder_open.png</normaloff>:/images/1238844490_1_folder_open.png</iconset>
    </property>
    <property name="text">
@@ -186,7 +179,7 @@
   </action>
   <action name="actionExit">
    <property name="icon">
-    <iconset>
+    <iconset resource="qword.qrc">
      <normaloff>:/images/1238844505_exit.png</normaloff>:/images/1238844505_exit.png</iconset>
    </property>
    <property name="text">
@@ -198,7 +191,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset>
+    <iconset resource="qword.qrc">
      <normaloff>:/images/1238867598_add_48.png</normaloff>:/images/1238867598_add_48.png</iconset>
    </property>
    <property name="text">
@@ -215,7 +208,7 @@
   </action>
   <action name="actionNew">
    <property name="icon">
-    <iconset>
+    <iconset resource="qword.qrc">
      <normaloff>:/images/1239111434_folder_new.png</normaloff>:/images/1239111434_folder_new.png</iconset>
    </property>
    <property name="text">
@@ -239,6 +232,8 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="qword.qrc"/>
+ </resources>
  <connections/>
 </ui>

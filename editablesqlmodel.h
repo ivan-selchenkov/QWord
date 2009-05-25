@@ -13,6 +13,9 @@ class EditableSqlModel : public QSqlQueryModel
     Qt::ItemFlags flags(const QModelIndex &index) const;
     bool setData(const QModelIndex &index, const QVariant &value, int /* role */);
     void refresh();
+
+    void RemoveRow(QModelIndexList indexes);
+private:
     bool setL(int Id, const QString &str, int);
  };
 

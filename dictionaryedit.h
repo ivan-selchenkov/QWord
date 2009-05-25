@@ -23,6 +23,9 @@ private:
     Ui::DictionaryEdit *m_ui;
     QSqlDatabase db;
     EditableSqlModel* model;
+
+private slots:
+    void on_btnDelete_clicked();
 };
 class SimpleDelegate : public QItemDelegate
 {
