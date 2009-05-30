@@ -13,6 +13,7 @@ bool lessThan(const DictItem &s1, const DictItem &s2);
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindowClass)
 {
+
     ui->setupUi(this);
     createActions();
     createTrayIcon();
