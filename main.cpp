@@ -6,6 +6,10 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
+    QCoreApplication::setOrganizationName("Crazy Rabbit");
+    QCoreApplication::setOrganizationDomain("crazyrabbit.com");
+    QCoreApplication::setApplicationName("QWord");
+
     QTranslator myappTranslator;
     QTranslator qtTranslator;
 
@@ -16,6 +20,16 @@ int main(int argc, char *argv[])
     app.installTranslator (&myappTranslator);
 
     MainWindow w;
+
+    QSettings settings;
+    int x, y;
+    if(settings.contains("X") && settings.contains("Y"))
+    {
+        x = settings.value("X").toInt();
+        y = settings.value("Y").toInt();
+        w.move(x,y);
+    }
+
     w.show();
     return app.exec();
 }
