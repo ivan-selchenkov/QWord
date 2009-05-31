@@ -8,6 +8,7 @@
 #include <QInputDialog>
 #include "inquiryinitial.h"
 #include "dictionaryedit.h"
+#include "about.h"
 
 bool lessThan(const DictItem &s1, const DictItem &s2);
 MainWindow::MainWindow(QWidget *parent)
@@ -483,4 +484,10 @@ void MainWindow::on_action1_triggered()
 {
     DictionaryEdit de(this);
     de.exec();
+}
+
+void MainWindow::on_actionQWord_triggered()
+{
+    About about(this);
+    about.exec();
 }

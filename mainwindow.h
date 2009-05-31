@@ -74,6 +74,7 @@ private:
     bool isHidden;
     QTimer* timer;
 private slots:
+    void on_actionQWord_triggered();
     void on_action1_triggered();
     void on_btnStartHidden_clicked();
     void on_actionHidden_triggered();

@@ -161,8 +161,9 @@
    </widget>
    <widget class="QMenu" name="menuAbout">
     <property name="title">
-     <string>About</string>
+     <string>Help</string>
     </property>
+    <addaction name="actionQWord"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuDictionary"/>
@@ -228,6 +229,11 @@
   <action name="action1">
    <property name="text">
     <string>1</string>
+   </property>
+  </action>
+  <action name="actionQWord">
+   <property name="text">
+    <string>About QWord</string>
    </property>
   </action>
  </widget>

@@ -7,6 +7,9 @@
         <file>images/1238867598_add_48.png</file>
         <file>images/1238844505_exit.png</file>
         <file>images/qword.svg</file>
-	<file>main_ru.qm</file>
+        <file>main_ru.qm</file>
+        <file>images/help/newword.jpg</file>
+        <file>images/help/normalmode.jpg</file>
+        <file>images/help/traymode.jpg</file>
     </qresource>
 </RCC>
