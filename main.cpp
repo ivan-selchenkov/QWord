@@ -27,7 +27,8 @@ int main(int argc, char *argv[])
     {
         x = settings.value("X").toInt();
         y = settings.value("Y").toInt();
-        w.move(x,y);
+        //w.move(x,y);
+        w.setGeometry(x,y,w.width(), w.height());
     }
 
     w.show();
