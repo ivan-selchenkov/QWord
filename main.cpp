@@ -30,7 +30,9 @@ int main(int argc, char *argv[])
         //w.move(x,y);
         w.setGeometry(x,y,w.width(), w.height());
     }
-
+    Qt::WindowFlags flags = w.windowFlags();
+    flags |= Qt::WindowStaysOnTopHint;
+    w.setWindowFlags(flags);
     w.show();
     return app.exec();
 }
