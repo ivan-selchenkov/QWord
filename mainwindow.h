@@ -55,6 +55,7 @@ private:
 
     void setUiEnabled(bool value);
     bool getItem(DictItem&);
+    bool compareAnswer(QString userAnswer, QString Answer);
 
     DictItem current;
     bool error;
@@ -74,6 +75,8 @@ private:
     bool isHidden;
     QTimer* timer;
 private slots:
+    void on_btnStop_clicked();
+    void on_chbLearn_clicked(bool checked);
     void on_actionQWord_triggered();
     void on_action1_triggered();
     void on_btnStartHidden_clicked();
@@ -83,7 +86,6 @@ private slots:
     void on_actionShow_Dict_triggered();
     void on_txtAnswer_returnPressed();
     void on_btnStart_clicked();
-    void on_pushButton_clicked();
     void on_actionAdd_words_triggered();
     void on_actionOpen_triggered();
     void on_actionExit_triggered();

@@ -88,17 +88,17 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DictionaryEdit</name>
     <message>
-        <location filename="dictionaryedit.cpp" line="19"/>
+        <location filename="dictionaryedit.cpp" line="22"/>
         <source>Database error</source>
         <translation type="unfinished">Ошибка при работе со словарем</translation>
     </message>
     <message>
-        <location filename="dictionaryedit.cpp" line="27"/>
+        <location filename="dictionaryedit.cpp" line="30"/>
         <source>First phrase</source>
         <translation type="unfinished">Первый вариант</translation>
     </message>
     <message>
-        <location filename="dictionaryedit.cpp" line="28"/>
+        <location filename="dictionaryedit.cpp" line="31"/>
         <source>Second phrase</source>
         <translation type="unfinished">Второй вариант</translation>
     </message>
@@ -147,36 +147,37 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="mainwindow.cpp" line="47"/>
+        <location filename="mainwindow.cpp" line="49"/>
         <source>Select dictionary...</source>
         <translation type="unfinished">Выберите словарь...</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="51"/>
+        <location filename="mainwindow.cpp" line="53"/>
         <source>File not found.</source>
         <translation type="unfinished">Файл словаря не найден.</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="67"/>
-        <location filename="mainwindow.cpp" line="135"/>
-        <location filename="mainwindow.cpp" line="177"/>
-        <location filename="mainwindow.cpp" line="385"/>
+        <location filename="mainwindow.cpp" line="72"/>
+        <location filename="mainwindow.cpp" line="143"/>
+        <location filename="mainwindow.cpp" line="191"/>
+        <location filename="mainwindow.cpp" line="433"/>
         <source>Database error</source>
         <translation type="unfinished">Ошибка при работе со словарем</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="145"/>
+        <location filename="mainwindow.cpp" line="156"/>
         <source>Record exists...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="290"/>
-        <location filename="mainwindow.cpp" line="344"/>
+        <location filename="mainwindow.cpp" line="304"/>
+        <location filename="mainwindow.cpp" line="362"/>
+        <location filename="mainwindow.cpp" line="565"/>
         <source>Finished! &lt;br&gt;&lt;br&gt;Total: %1&lt;br&gt;Error: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="368"/>
+        <location filename="mainwindow.cpp" line="408"/>
         <source>Creating dictionary...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -185,7 +186,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Неверный ответ</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="447"/>
+        <location filename="mainwindow.cpp" line="496"/>
         <source>Mi&amp;nimize</source>
         <translation type="unfinished">С&amp;вернуть</translation>
     </message>
@@ -194,17 +195,17 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&amp;Развернуть</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="453"/>
+        <location filename="mainwindow.cpp" line="502"/>
         <source>&amp;Restore</source>
         <translation type="unfinished">&amp;Восстановить</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="456"/>
+        <location filename="mainwindow.cpp" line="505"/>
         <source>&amp;Quit</source>
         <translation type="unfinished">В&amp;ыход</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="372"/>
+        <location filename="mainwindow.cpp" line="412"/>
         <source>File exists.</source>
         <translation type="unfinished">Файл словаря уже существует.</translation>
     </message>
@@ -226,86 +227,95 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Начать!</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="84"/>
+        <location filename="mainwindow.ui" line="88"/>
         <source>Start</source>
         <translation type="unfinished">Начать</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="108"/>
+        <location filename="mainwindow.ui" line="128"/>
+        <source>Stop</source>
+        <translation type="unfinished">Стоп</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="156"/>
         <source>Learn Mode</source>
         <translation type="unfinished">Режим обучения</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="115"/>
+        <location filename="mainwindow.ui" line="163"/>
         <source>Tray Mode</source>
         <translation type="unfinished">Скрытый режим</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="126"/>
+        <location filename="mainwindow.ui" line="174"/>
         <source>Foreign -&gt; Native</source>
         <translation type="unfinished">Опрашивать перевод иностранный слов</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="149"/>
+        <location filename="mainwindow.ui" line="197"/>
         <source>File</source>
         <translation type="unfinished">Файл</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="157"/>
+        <location filename="mainwindow.ui" line="205"/>
         <source>Dictionary</source>
         <translation type="unfinished">Словарь</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="255"/>
+        <source>Edit Dict</source>
+        <translation type="unfinished">Редактирование</translation>
     </message>
     <message>
         <source>About</source>
         <translation type="obsolete">О программе</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="164"/>
+        <location filename="mainwindow.ui" line="212"/>
         <source>Help</source>
         <translation type="unfinished">Помощь</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="178"/>
+        <location filename="mainwindow.ui" line="226"/>
         <source>Open</source>
         <translation type="unfinished">Открыть</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="187"/>
+        <location filename="mainwindow.ui" line="235"/>
         <source>Exit</source>
         <translation type="unfinished">Выход</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="199"/>
+        <location filename="mainwindow.ui" line="247"/>
         <source>Add words</source>
         <translation type="unfinished">Добавить слова</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="207"/>
         <source>Show Dict</source>
-        <translation type="unfinished">Просмотр словаря</translation>
+        <translation type="obsolete">Редактирование словаря</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="216"/>
+        <location filename="mainwindow.ui" line="264"/>
         <source>New</source>
         <translation type="unfinished">Новый словарь</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="221"/>
+        <location filename="mainwindow.ui" line="269"/>
         <source>Normal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="226"/>
+        <location filename="mainwindow.ui" line="274"/>
         <source>Hidden</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="231"/>
+        <location filename="mainwindow.ui" line="279"/>
         <source>1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="236"/>
+        <location filename="mainwindow.ui" line="284"/>
         <source>About QWord</source>
         <translation type="unfinished">О программе QWord</translation>
     </message>

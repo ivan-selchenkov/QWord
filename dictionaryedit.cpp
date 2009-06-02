@@ -16,6 +16,9 @@ DictionaryEdit::DictionaryEdit(QWidget *parent) :
     if(!db.open())
     {
         QMessageBox msgBox;
+        Qt::WindowFlags flags = msgBox.windowFlags();
+        flags |= Qt::WindowStaysOnTopHint;
+        msgBox.setWindowFlags(flags);
         msgBox.setText(tr("Database error"));
         msgBox.exec();
         return;

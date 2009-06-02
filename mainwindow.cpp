@@ -24,6 +24,8 @@ MainWindow::MainWindow(QWidget *parent)
     isHidden = false;
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(on_next_question()));
+
+    //compareAnswer("весьма", "очень, весьма (трэ)");
 }
 
 MainWindow::~MainWindow()
@@ -49,6 +51,9 @@ void MainWindow::on_actionOpen_triggered()
     if(!QFileInfo(str).exists()) {
         QMessageBox msgBox;
         msgBox.setText(tr("File not found."));
+        Qt::WindowFlags flags = msgBox.windowFlags();
+        flags |= Qt::WindowStaysOnTopHint;
+        msgBox.setWindowFlags(flags);
         msgBox.exec();
         return;
     }
@@ -65,6 +70,9 @@ void MainWindow::LoadDict()
     {
         QMessageBox msgBox;
         msgBox.setText(tr("Database error"));
+        Qt::WindowFlags flags = msgBox.windowFlags();
+        flags |= Qt::WindowStaysOnTopHint;
+        msgBox.setWindowFlags(flags);
         msgBox.exec();
         return;
     }
@@ -133,6 +141,9 @@ void MainWindow::on_newWord(DictItem _i)
     {
         QMessageBox msgBox;
         msgBox.setText(tr("Database error"));
+        Qt::WindowFlags flags = msgBox.windowFlags();
+        flags |= Qt::WindowStaysOnTopHint;
+        msgBox.setWindowFlags(flags);
         msgBox.exec();
         return;
     }
@@ -143,6 +154,9 @@ void MainWindow::on_newWord(DictItem _i)
         {
             QMessageBox msgBox;
             msgBox.setText(tr("Record exists..."));
+            Qt::WindowFlags flags = msgBox.windowFlags();
+            flags |= Qt::WindowStaysOnTopHint;
+            msgBox.setWindowFlags(flags);
             msgBox.exec();
             return;
         }
@@ -175,6 +189,9 @@ void MainWindow::on_delete_item(int id)
     {
         QMessageBox msgBox;
         msgBox.setText(tr("Database error"));
+        Qt::WindowFlags flags = msgBox.windowFlags();
+        flags |= Qt::WindowStaysOnTopHint;
+        msgBox.setWindowFlags(flags);
         msgBox.exec();
         return;
     }
@@ -197,9 +214,6 @@ void MainWindow::on_delete_item(int id)
 
     db.close();
     emit signal_updateQueue();
-}
-void MainWindow::on_pushButton_clicked()
-{
 }
 
 void MainWindow::on_btnStart_clicked()
@@ -263,7 +277,7 @@ void MainWindow::checkAnswer()
     bool goMinimize = true;
     QString answer = ui->txtAnswer->text();
     if(answer == "") return;
-    if(answer != current.l2) // Ошибка
+    if(!compareAnswer(answer, current.l2)) // Ошибка
     {
         if(error == false) { // Ставим что одна ошибка уже была и даем еще шанс
             error = true;
@@ -288,6 +302,10 @@ void MainWindow::checkAnswer()
     if(!getItem(current)) { // getting current item, else return
         QMessageBox msgBox;
         msgBox.setText(QString(tr("Finished! <br><br>Total: %1<br>Error: %2")).arg(countTotal).arg(countErrors));
+        Qt::WindowFlags flags = msgBox.windowFlags();
+        flags |= Qt::WindowStaysOnTopHint;
+        msgBox.setWindowFlags(flags);
+
         msgBox.exec();
         return;
     }
@@ -328,7 +346,7 @@ void MainWindow::on_txtAnswer_returnPressed()
 
     QString answer = ui->txtAnswer->text();
     if(answer == "") return;
-    if(answer != current.l2) // Ошибка
+    if(!compareAnswer(answer, current.l2)) // Ошибка
     {
         if(error == false) { error = true; ui->lblOK->setText("<font color=\"red\"><b>:(</b></font>"); return; } // Ставим что одна ошибка уже была и даем еще шанс
         else { countErrors++; error = false; queue.enqueue(current); ui->lblOK->setText("<font color=\"red\"><b>:(</b></font>"); } // Сбрасываем ошибку и идем дальше
@@ -342,6 +360,10 @@ void MainWindow::on_txtAnswer_returnPressed()
     if(!getItem(current)) {
         QMessageBox msgBox;
         msgBox.setText(QString(tr("Finished! <br><br>Total: %1<br>Error: %2")).arg(countTotal).arg(countErrors));
+        Qt::WindowFlags flags = msgBox.windowFlags();
+        flags |= Qt::WindowStaysOnTopHint;
+        msgBox.setWindowFlags(flags);
+
         msgBox.exec();
         return; // getting current item, else return
     }
@@ -356,7 +378,25 @@ void MainWindow::on_txtAnswer_returnPressed()
         ui->lblQuestion->setText(current.l1);
 
 }
+bool MainWindow::compareAnswer(QString userAnswer, QString Answer)
+{
+    int start = Answer.indexOf("(", 0);
+    int end;
+    QString current, trimmed;
 
+    if(start > 0) {
+        end = Answer.indexOf(")", start);
+        if(start > 0 && end > start)
+            Answer.remove(start, end-start+1);
+    }
+    QStringList list = Answer.split(",");
+    foreach(current, list)
+    {
+        trimmed = current.trimmed();
+        if(trimmed == userAnswer) return true;
+    }
+    return false;
+}
 void MainWindow::on_actionShow_Dict_triggered()
 {
     DictionaryEdit de(this);
@@ -370,6 +410,10 @@ void MainWindow::on_actionNew_triggered()
     if(QFileInfo(str).exists()) {
         QMessageBox msgBox;
         msgBox.setText(tr("File exists."));
+        Qt::WindowFlags flags = msgBox.windowFlags();
+        flags |= Qt::WindowStaysOnTopHint;
+        msgBox.setWindowFlags(flags);
+
         msgBox.exec();
         return;
     }
@@ -382,6 +426,10 @@ void MainWindow::on_actionNew_triggered()
     if(!db.open())
     {
         QMessageBox msgBox;
+        Qt::WindowFlags flags = msgBox.windowFlags();
+        flags |= Qt::WindowStaysOnTopHint;
+        msgBox.setWindowFlags(flags);
+
         msgBox.setText(tr("Database error"));
         msgBox.exec();
         return;
@@ -436,6 +484,7 @@ bool MainWindow::getItem(DictItem& item) {
 void MainWindow::setUiEnabled(bool value)
 {
     ui->txtAnswer->setEnabled(!value);
+    ui->btnStop->setEnabled(!value);
     ui->btnStart->setEnabled(value);
     ui->chbTray->setEnabled(value);
     ui->chbLearn->setEnabled(value);
@@ -490,4 +539,34 @@ void MainWindow::on_actionQWord_triggered()
 {
     About about(this);
     about.exec();
+}
+void MainWindow::on_chbLearn_clicked(bool checked)
+{
+    if(checked)
+    {
+        ui->chbDirection->setCheckState(Qt::Unchecked);
+        ui->chbDirection->setEnabled(false);
+    }
+    else
+        ui->chbDirection->setEnabled(true);
+}
+
+void MainWindow::on_btnStop_clicked()
+{
+    if(timer->isActive()) timer->stop();
+    queue.clear();
+
+    ui->txtAnswer->setText("");
+    ui->txtWord->setText("");
+    ui->lblQuestion->setText("");
+    ui->lblOK->setText("");
+
+    QMessageBox msgBox;
+    msgBox.setText(QString(tr("Finished! <br><br>Total: %1<br>Error: %2")).arg(countTotal).arg(countErrors));
+    Qt::WindowFlags flags = msgBox.windowFlags();
+    flags |= Qt::WindowStaysOnTopHint;
+    msgBox.setWindowFlags(flags);
+    msgBox.exec();
+
+    setUiEnabled(true);
 }
